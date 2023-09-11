@@ -1,0 +1,35 @@
+<div class="page-container">
+    <section class="card-form-container">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field appearance="fill" class="full-field">
+                    <mat-label>Destino</mat-label>
+                    <mat-select [(ngModel)]="selectedPlace">
+                        <mat-option [value]="place" *ngFor="let place of places">{{place.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-field">
+                    <mat-label>Codigo</mat-label>
+                    <input matInput type="text" name="item" id="item" onkeypress="">
+                </mat-form-field>
+                <p>
+                    <button mat-raised-button color="primary" (click)="onMoveItem()">
+                        <mat-icon aria-hidden="false" aria-label="" fontIcon="update"></mat-icon>
+                        Mover
+                    </button>
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </section>
+    <section class="card-item-list-container" *ngIf="currentMovement.item && currentMovement.place">
+        <mat-card class="card-item">
+            <mat-card-content>
+                <span>{{currentMovement.item.type.name}}</span>
+                <span>{{currentMovement.item.variety.name}}</span>
+                <span>{{currentMovement.item.color.name}}</span>
+                <span>{{currentMovement.item.amount}}</span>
+                <span>{{currentMovement.place.name}}</span>
+            </mat-card-content>
+        </mat-card>
+    </section>
+</div>

@@ -11,6 +11,8 @@ import { Type } from 'src/app/interfaces/type';
 import { Variety } from 'src/app/interfaces/variety';
 import { Color } from 'src/app/interfaces/color';
 import { QrComponent } from 'src/app/components/qr/qr.component';
+import { ItemFormComponent } from 'src/app/components/item-form/item-form.component';
+import { ItemService } from 'src/app/services/item.service';
 
 @Component({
   selector: 'app-add-item',
@@ -25,29 +27,54 @@ export class AddItemComponent {
   public colours: Color[] = []
 
   constructor(
+    private itemService: ItemService,
     public matDialog: MatDialog
   ) {
     this.types = types
     this.varieties = varieties
     this.colours = colours
+
+    this.getItems()
+  }
+
+  getItems() {
+    this.itemService.readItems()
+    .then(res => {
+      const mapItem = res.docs.map(r => {
+        return {
+          id: r.id, 
+          ...r.data()
+        } as Item
+      })
+
+      this.items = mapItem
+    })
   }
 
   onCreateItem() {
-    console.log('new item', this.newItem)
-    this.items.push(this.newItem)
-    this.newItem = {} as Item
+    this.itemService.saveItem(this.newItem)
+    .then(res => {
+      console.log('ITEM SAVED!!', res)
+    })
+    .catch(err => {
+    })
   }
 
   onShowModalQR(item: Item) {
     this.matDialog.open(QrComponent, {
       data: {
-        qrData: this.getItemRaw(item)
+        qrData: item.id
       }
     })
   }
 
-  getItemRaw(item: Item) {
-    return `${item.type.name}|${item.variety.name}|${item.color.name}`
-  }
-  
+  onShowModalAddItem() {
+    this.matDialog.open(ItemFormComponent, {
+      data: {
+        types: this.types,
+        varieties: this.varieties,
+        colours: this.colours
+      }
+    })
+  }  
 }

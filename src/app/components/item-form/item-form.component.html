@@ -1,0 +1,34 @@
+<section class="card-form-container">
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field appearance="fill" class="full-field">
+                <mat-label>Tipo</mat-label>
+                <mat-select [(ngModel)]="newItem.type">
+                    <mat-option [value]="type" *ngFor="let type of data.types">{{type.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field ppearance="fill" class="full-field">
+                <mat-label>Variedad</mat-label>
+                <mat-select [(ngModel)]="newItem.variety">
+                    <mat-option [value]="variety" *ngFor="let variety of data.varieties">{{variety.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field ppearance="fill" class="full-field">
+                <mat-label>Color</mat-label>
+                <mat-select [(ngModel)]="newItem.color">
+                    <mat-option [value]="color" *ngFor="let color of data.colours">{{color.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" name="amount" id="amount" [(ngModel)]="newItem.amount">
+            </mat-form-field>
+            <p>
+                <button mat-raised-button color="primary" (click)="onCreateItem()">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="save"></mat-icon>
+                    Guardar
+                </button>
+            </p>
+        </mat-card-content>
+    </mat-card>
+</section>

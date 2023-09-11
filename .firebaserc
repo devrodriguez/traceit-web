@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "traceit-starq": {
+      "hosting": {
+        "traceit-web": [
+          "traceit-starq"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "traceit-starq"
+  }
+}

@@ -18,12 +18,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { QrComponent } from './components/qr/qr.component';
+import { MoveItemComponent } from './pages/item/move-item/move-item.component';
+import { ItemFormComponent } from './components/item-form/item-form.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideFunctions,getFunctions } from '@angular/fire/functions';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddItemComponent,
-    QrComponent
+    QrComponent,
+    MoveItemComponent,
+    ItemFormComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +48,12 @@ import { QrComponent } from './components/qr/qr.component';
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideFunctions(() => getFunctions()),
+    provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]
