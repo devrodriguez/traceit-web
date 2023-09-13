@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddItemComponent } from './pages/item/add-item/add-item.component';
 import { MoveItemComponent } from './pages/item/move-item/move-item.component';
+import { MovementsComponent } from './pages/item/movements/movements.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,15 @@ const routes: Routes = [
   {
     path: 'item/move',
     component: MoveItemComponent
+  },
+  {
+    path: 'item/movements',
+    component: MovementsComponent
+  },
+  {
+    path: '**', 
+    pathMatch: 'full', 
+    redirectTo: 'item/add' 
   }
 ];
 

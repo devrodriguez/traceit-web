@@ -1,0 +1,18 @@
+<section class="container">
+    <mat-form-field appearance="fill" class="full-field">
+        <mat-label>Destino</mat-label>
+        <mat-select [(ngModel)]="selectedPlace">
+            <mat-option [value]="place" *ngFor="let place of places">{{place.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-field">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" name="" id="" [(ngModel)]="amountMoved">
+    </mat-form-field>
+    <p>
+        <button mat-raised-button color="primary" (click)="onMoveItem()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="move_up"></mat-icon>
+            Trasladar
+        </button>
+    </p>
+</section>

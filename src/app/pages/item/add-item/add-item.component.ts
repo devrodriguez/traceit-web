@@ -76,5 +76,9 @@ export class AddItemComponent {
         colours: this.colours
       }
     })
-  }  
+  } 
+
+  onCopy(item: Item) {
+    navigator.clipboard.writeText(item.id)
+  }
 }

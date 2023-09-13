@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Firestore, addDoc, collectionData, getDocs } from '@angular/fire/firestore'
+import { Firestore, addDoc, collectionData, doc, getDoc, getDocs } from '@angular/fire/firestore'
 import { collection } from '@angular/fire/firestore';
 
 import { Item } from '../interfaces/item';
@@ -16,6 +16,11 @@ export class ItemService {
   readItems() {
     const itemRef = collection(this.firestore, 'items')
     return getDocs(itemRef)
+  }
+
+  readItemByID(id: string) {
+    const docRef = doc(this.firestore, 'items', id)
+    return getDoc(docRef)
   }
 
   saveItem(item: Item) {

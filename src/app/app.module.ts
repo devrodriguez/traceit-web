@@ -17,6 +17,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { QrComponent } from './components/qr/qr.component';
 import { MoveItemComponent } from './pages/item/move-item/move-item.component';
 import { ItemFormComponent } from './components/item-form/item-form.component';
@@ -26,6 +31,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { MoveFormComponent } from './components/move-form/move-form.component';
+import { MovementsComponent } from './pages/item/movements/movements.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +40,9 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     AddItemComponent,
     QrComponent,
     MoveItemComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    MoveFormComponent,
+    MovementsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +58,10 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

@@ -1,34 +1,62 @@
 <div class="page-container">
     <section class="card-form-container">
-        <mat-card>
+        <mat-card *ngIf="!placeFound.name">
+            <mat-card-content>
+                <p>Ingresa el codigo de la ubicación y presiona la tecla Enter</p>
+                <mat-form-field appearance="fill" class="full-field">
+                    <mat-label>Ubicación</mat-label>
+                    <input matInput type="text" name="item" id="item" [(ngModel)]="placeID"
+                        (keydown.enter)="onPlaceKeypress($event)">
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="placeFound.name">
+            <mat-card-header>
+                <mat-card-title>{{placeFound.name}}</mat-card-title>
+                <mat-card-subtitle>Los items registrados seran asignados en esta ubicación</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    <button mat-stroked-button (click)="onChangePlace()">
+                        <mat-icon aria-hidden="false" aria-label="Search item" fontIcon="move_up"></mat-icon>
+                        Cambiar
+                    </button>
+                </p>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card *ngIf="placeFound.name">
+            <mat-card-header>
+                <mat-card-subtitle>Ingresa el codigo del item que quieras trasladar y presiona la tecla Enter o el boton Consultar</mat-card-subtitle>
+            </mat-card-header>
             <mat-card-content>
                 <mat-form-field appearance="fill" class="full-field">
-                    <mat-label>Destino</mat-label>
-                    <mat-select [(ngModel)]="selectedPlace">
-                        <mat-option [value]="place" *ngFor="let place of places">{{place.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="full-field">
                     <mat-label>Codigo</mat-label>
-                    <input matInput type="text" name="item" id="item" onkeypress="">
+                    <input matInput type="text" name="item" id="item" [(ngModel)]="itemIDSearch"
+                        (keydown.enter)="onItemInputKeypress($event)">
                 </mat-form-field>
                 <p>
-                    <button mat-raised-button color="primary" (click)="onMoveItem()">
-                        <mat-icon aria-hidden="false" aria-label="" fontIcon="update"></mat-icon>
-                        Mover
+                    <button mat-raised-button color="primary" (click)="onEnterItem()">
+                        <mat-icon aria-hidden="false" aria-label="Search item" fontIcon="add"></mat-icon>
+                        Ingresar
                     </button>
                 </p>
             </mat-card-content>
         </mat-card>
     </section>
-    <section class="card-item-list-container" *ngIf="currentMovement.item && currentMovement.place">
+    <section class="card-item-list-container" *ngIf="itemFound.type">
         <mat-card class="card-item">
             <mat-card-content>
-                <span>{{currentMovement.item.type.name}}</span>
-                <span>{{currentMovement.item.variety.name}}</span>
-                <span>{{currentMovement.item.color.name}}</span>
-                <span>{{currentMovement.item.amount}}</span>
-                <span>{{currentMovement.place.name}}</span>
+                <span>{{itemFound.type.name}}</span>
+                <span>{{itemFound.variety.name}}</span>
+                <span>{{itemFound.color.name}}</span>
+                <span>{{itemFound.amount}}</span>
+                <mat-icon 
+                aria-hidden="false" 
+                aria-label="" 
+                fontIcon="qr_code"
+                (click)="onShowModalQR(itemFound)"></mat-icon>
+                <mat-icon aria-hidden="false" aria-label="" fontIcon="more_vert"></mat-icon>
             </mat-card-content>
         </mat-card>
     </section>

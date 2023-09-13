@@ -40,7 +40,14 @@
                 <span>{{item.variety.name}}</span>
                 <span>{{item.color.name}}</span>
                 <span>{{item.amount}}</span>
-                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="qr_code" (click)="onShowModalQR(item)"></mat-icon>
+                <mat-icon aria-hidden="false" aria-label="" fontIcon="qr_code" (click)="onShowModalQR(item)"></mat-icon>
+                <mat-icon aria-hidden="false" 
+                aria-label="" 
+                fontIcon="content_copy"
+                matTooltip="ID copiado al portapapeles"
+                [matTooltipShowDelay]="1000"
+                [matTooltipHideDelay]="2000"
+                (click)="onCopy(item)"></mat-icon>
             </mat-card-content>
         </mat-card>
     </section>

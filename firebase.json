@@ -1,9 +1,14 @@
 {
-  "hosting": [
-    {
-      "target": "traceit-web",
-      "source": ".",
-      "frameworksBackend": {}
+  "hosting": {
+    "public": "dist",
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "us-central1"
     }
-  ]
+  }
 }
