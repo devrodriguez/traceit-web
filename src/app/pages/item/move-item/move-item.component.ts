@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MoveFormComponent } from 'src/app/components/move-form/move-form.component';
 import { QrComponent } from 'src/app/components/qr/qr.component';
 import { Item } from 'src/app/interfaces/item';
 import { Movement } from 'src/app/interfaces/movement';
@@ -41,8 +40,6 @@ export class MoveItemComponent {
         ...res.data()
       } as Item
 
-      console.log(mapItem)
-
       this.itemFound = mapItem
     } catch (error) {
       
@@ -57,7 +54,10 @@ export class MoveItemComponent {
         ...res.data()
       } as Place
 
-      console.log(mapPlace)
+      if(!mapPlace.name) {
+        this.presentSnackBar('No se encontro ninguna ubicación')
+        return
+      }
 
       this.placeFound = mapPlace
     })

@@ -40,14 +40,28 @@
                 <span>{{item.variety.name}}</span>
                 <span>{{item.color.name}}</span>
                 <span>{{item.amount}}</span>
-                <mat-icon aria-hidden="false" aria-label="" fontIcon="qr_code" (click)="onShowModalQR(item)"></mat-icon>
+                <mat-icon aria-hidden="false" aria-label="" fontIcon="print" (click)="onShowModalQR(qr)"></mat-icon>
                 <mat-icon aria-hidden="false" 
                 aria-label="" 
                 fontIcon="content_copy"
-                matTooltip="ID copiado al portapapeles"
-                [matTooltipShowDelay]="1000"
-                [matTooltipHideDelay]="2000"
                 (click)="onCopy(item)"></mat-icon>
+                <qrcode
+                    style="display: none;"
+                    #qr
+                    [qrdata]="item.id"
+                    [allowEmptyString]="true"
+                    [alt]="'A custom alt attribute'"
+                    [ariaLabel]="'QR Code image with the following content...'"
+                    [cssClass]="'center'"
+                    [colorDark]="'#3f51b5'"
+                    [colorLight]="'#ffffffff'"
+                    [elementType]="'img'"
+                    [errorCorrectionLevel]="'M'"
+                    [margin]="4"
+                    [scale]="1"
+                    [title]="'Item'"
+                    [width]="250"
+                ></qrcode>
             </mat-card-content>
         </mat-card>
     </section>

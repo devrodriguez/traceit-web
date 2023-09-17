@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { MatDialog, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Item } from 'src/app/interfaces/item';
+import { Type } from 'src/app/interfaces/type';
+import { Variety } from 'src/app/interfaces/variety';
+import { Color } from 'src/app/interfaces/color';
+import { ItemFormComponent } from 'src/app/components/item-form/item-form.component';
+import { ItemService } from 'src/app/services/item.service';
 
 /** Data */
 import types from '../../../mock-data/type.json';
 import varieties from '../../../mock-data/variety.json';
 import colours from '../../../mock-data/color.json';
-import { Item } from 'src/app/interfaces/item';
-import { Type } from 'src/app/interfaces/type';
-import { Variety } from 'src/app/interfaces/variety';
-import { Color } from 'src/app/interfaces/color';
-import { QrComponent } from 'src/app/components/qr/qr.component';
-import { ItemFormComponent } from 'src/app/components/item-form/item-form.component';
-import { ItemService } from 'src/app/services/item.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-item',
@@ -28,7 +28,8 @@ export class AddItemComponent {
 
   constructor(
     private itemService: ItemService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private matSnackBar: MatSnackBar
   ) {
     this.types = types
     this.varieties = varieties
@@ -60,12 +61,15 @@ export class AddItemComponent {
     })
   }
 
-  onShowModalQR(item: Item) {
-    this.matDialog.open(QrComponent, {
-      data: {
-        qrData: item.id
-      }
-    })
+  onShowModalQR(item: any) {
+    const qrImage = item.qrcElement.nativeElement.getElementsByTagName('img')[0].currentSrc
+    const qrWindow = window.open("", "_blank")
+    qrWindow?.document.write("<img style=\"min-width: 200px;\" src=\""+qrImage+"\">");
+    setTimeout(()=> {
+      qrWindow?.print()
+      qrWindow?.close()
+    }, 100)
+    
   }
 
   onShowModalAddItem() {
@@ -79,6 +83,13 @@ export class AddItemComponent {
   } 
 
   onCopy(item: Item) {
-    navigator.clipboard.writeText(item.id)
+    navigator.clipboard.writeText(item.id || '')
+    this.presentSnackBar('ID de item copiado al portapapeles')
+  }
+
+  presentSnackBar(message: string) {
+    this.matSnackBar.open(message, undefined, {
+      duration: 3000
+    });
   }
 }

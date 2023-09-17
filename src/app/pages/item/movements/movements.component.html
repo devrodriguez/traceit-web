@@ -1,40 +1,80 @@
 <div class="page-container">
-    <section class="card-form-container">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-subtitle>Ingresa el codigo del item que quieras ver los movimientos y presiona la tecla Enter o el boton Consultar</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field appearance="fill" class="full-field">
-                    <mat-label>Codigo</mat-label>
-                    <input matInput type="text" name="item" id="item" [(ngModel)]="itemIDSearch"
-                        (keydown.enter)="onItemInputKeypress($event)">
-                </mat-form-field>
-                <p>
-                    <button mat-raised-button color="primary" (click)="onSearchItem()">
-                        <mat-icon aria-hidden="false" aria-label="Search item" fontIcon="add"></mat-icon>
-                        Buscar
-                    </button>
-                </p>
-            </mat-card-content>
-        </mat-card>
-    </section>
-    <section class="card-item-list-container" *ngIf="movements.length">
-        <mat-card class="card-item">
-            <mat-card-content>
-                <span>{{movements[0].item.type.name}}</span>
-                <span>{{movements[0].item.variety.name}}</span>
-                <span>{{movements[0].item.color.name}}</span>
-                <span>{{movements[0].item.amount}}</span>
-            </mat-card-content>
-        </mat-card>
-    </section>
-    <section class="card-item-list-container" *ngIf="movements.length">
-        <mat-card class="card-item" *ngFor="let movement of movements">
-            <mat-card-content>
-                <span>{{movement.place.name}}</span>
-                <span>{{movement.createdAt | date:'yyyy-MM-dd HH:mm'}}</span>
-            </mat-card-content>
-        </mat-card>
-    </section>
+    <mat-tab-group>
+        <mat-tab label="Por Item">
+            <section class="card-form-container">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>Ingresa el codigo del item para ver sus movimientos y presiona la
+                            tecla Enter o el boton Buscar</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-form-field appearance="fill" class="full-field">
+                            <mat-label>Codigo</mat-label>
+                            <input matInput type="text" name="item" id="item" [(ngModel)]="itemIDSearch"
+                                (keydown.enter)="onItemInputKeypress($event)">
+                        </mat-form-field>
+                        <p *ngIf="false">Ingresa el codigo de la ubicación y presiona la tecla Enter</p>
+                        <mat-form-field appearance="fill" class="full-field" *ngIf="false">
+                            <mat-label>Ubicaciones</mat-label>
+                            <mat-select [(ngModel)]="selectedPlace" (selectionChange)="onPlaceChange($event)">
+                                <mat-option [value]="place" *ngFor="let place of places">{{place.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <p>
+                            <button mat-raised-button color="primary" (click)="onSearchItem()">
+                                <mat-icon aria-hidden="false" aria-label="Search item" fontIcon="search"></mat-icon>
+                                Buscar
+                            </button>
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </section>
+            <section class="card-item-list-container" *ngIf="movementsByItem.length">
+                <mat-card class="card-item">
+                    <mat-card-content>
+                        <span>{{movementsByItem[0].item.type.name}}</span>
+                        <span>{{movementsByItem[0].item.variety.name}}</span>
+                        <span>{{movementsByItem[0].item.color.name}}</span>
+                        <span>{{movementsByItem[0].item.amount}}</span>
+                    </mat-card-content>
+                </mat-card>
+            </section>
+            <section class="card-item-list-container" *ngIf="movementsByItem.length">
+                <mat-card class="card-item" *ngFor="let movement of movementsByItem">
+                    <mat-card-content>
+                        <span>{{movement.place.name}}</span>
+                        <span>{{movement.createdAt | date:'yyyy-MM-dd HH:mm'}}</span>
+                    </mat-card-content>
+                </mat-card>
+            </section>
+        </mat-tab>
+        <mat-tab label="Por ubicación">
+            <section class="card-form-container">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>Selecciona la ubicación para consultar los items ingresados</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-form-field appearance="fill" class="full-field">
+                            <mat-label>Ubicaciones</mat-label>
+                            <mat-select [(ngModel)]="selectedPlace" (selectionChange)="onPlaceChange($event)">
+                                <mat-option [value]="place" *ngFor="let place of places">{{place.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
+            </section>
+            <section class="card-item-list-container" *ngFor="let movement of movementsByPlace">
+                <mat-card class="card-item">
+                    <mat-card-content>
+                        <span>{{movement.item.type.name}}</span>
+                        <span>{{movement.item.variety.name}}</span>
+                        <span>{{movement.item.color.name}}</span>
+                        <span>{{movement.item.amount}}</span>
+                        <span>{{movement.createdAt | date:'yyyy-MM-dd HH:mm'}}</span>
+                    </mat-card-content>
+                </mat-card>
+            </section>
+        </mat-tab>
+    </mat-tab-group>
 </div>

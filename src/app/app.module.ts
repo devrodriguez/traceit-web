@@ -21,6 +21,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+ 
 
 import { QrComponent } from './components/qr/qr.component';
 import { MoveItemComponent } from './pages/item/move-item/move-item.component';
@@ -62,6 +64,7 @@ import { MovementsComponent } from './pages/item/movements/movements.component';
     MatToolbarModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatTabsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
