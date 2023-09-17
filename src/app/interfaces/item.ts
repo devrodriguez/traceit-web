@@ -10,4 +10,5 @@ export interface Item {
     color: Color
     amount: number
     currentStage: Stage
+    createdAt: string
 }

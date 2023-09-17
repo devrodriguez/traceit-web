@@ -17,7 +17,8 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
   QuerySnapshot,
-  onSnapshot} from '@angular/fire/firestore';
+  onSnapshot,
+  orderBy} from '@angular/fire/firestore';
 
 import { Item } from '../interfaces/item';
 import { Observable } from 'rxjs';
@@ -32,6 +33,12 @@ export class ItemService {
   readItems() {
     const itemRef = collection(this.firestore, 'items')
     return getDocs(itemRef)
+  }
+
+  readItemsSnap() {
+    const collRef = collection(this.firestore, 'items')
+    const qr = query(collRef, orderBy('createdAt', 'desc'))
+    return collectionData(qr, { idField: 'id' }) as Observable<Item[]>
   }
 
   readItemByID(id: string) {

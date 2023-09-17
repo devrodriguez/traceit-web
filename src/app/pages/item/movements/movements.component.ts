@@ -30,24 +30,18 @@ export class MovementsComponent {
 
   async loadMovementsByItem() {
     try {
-      const res = await this.movementsService.readMovementsByItem(this.itemIDSearch)
-      const mapMovements = res.docs.map(r => {
-        return {
-          id: r.id, 
-          ...r.data()
-        } as Movement
-      })
-
-      if(mapMovements.length == 0) {
+      const resMovements = await this.movementsService.readMovementsByItem(this.itemIDSearch)
+      
+      if(resMovements.length == 0) {
         this.presentSnackBar('No se encontraron movimientos para este item')
         return
       }
 
-      mapMovements.sort((a, b) => {
+      resMovements.sort((a, b) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       })
 
-      this.movementsByItem = mapMovements
+      this.movementsByItem = resMovements
     } catch (error) {
       console.log(error)
     }

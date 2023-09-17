@@ -35,29 +35,28 @@ export class AddItemComponent {
     this.varieties = varieties
     this.colours = colours
 
-    this.getItems()
+    this.loadItems()
+    
   }
 
-  getItems() {
-    this.itemService.readItems()
-    .then(res => {
-      const mapItem = res.docs.map(r => {
-        return {
-          id: r.id, 
-          ...r.data()
-        } as Item
-      })
-
-      this.items = mapItem
+  loadItems() {
+    this.itemService.readItemsSnap()
+    .subscribe(items => {
+      this.items = items
+    }, err => {
+      console.log(err)
     })
   }
 
   onCreateItem() {
+    this.newItem.createdAt = new Date().toISOString()
     this.itemService.saveItem(this.newItem)
     .then(res => {
-      console.log('ITEM SAVED!!', res)
+      this.presentSnackBar('Item creado')
+      this.resetForm()
     })
     .catch(err => {
+      console.log(err)
     })
   }
 
@@ -85,6 +84,14 @@ export class AddItemComponent {
   onCopy(item: Item) {
     navigator.clipboard.writeText(item.id || '')
     this.presentSnackBar('ID de item copiado al portapapeles')
+  }
+
+  /** Utils */
+  resetForm() {
+    this.newItem.type = {} as Type
+    this.newItem.variety = {} as Variety
+    this.newItem.color = {} as Color
+    this.newItem.amount = 0
   }
 
   presentSnackBar(message: string) {

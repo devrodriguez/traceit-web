@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, getDocs, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, getDocs, orderBy, query, where } from '@angular/fire/firestore';
 import { Movement } from '../interfaces/movement';
-import { Item } from '../interfaces/item';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +14,29 @@ export class MovementsService {
     return getDocs(collRef)
   }
 
-  readMovementsByItem(itemID: string) {
+  async readMovementsByItem(itemID: string) {
+    const collRef = collection(this.firestore, 'movements')
+    const docsData = await getDocs(
+      query(
+        collRef,
+        where('item.id', '==', itemID),
+      )
+    )
+
+    return docsData.docs.map(r => {
+      return {
+        id: r.id, 
+        ...r.data()
+      } as Movement
+    })
+  }
+
+  readItemsByPlace(placeID: string) {
     const collRef = collection(this.firestore, 'movements')
     return getDocs(
       query(
         collRef,
-        where('item.id', '==', itemID)
+        where('place.id', '==', placeID)
       )
     )
   }

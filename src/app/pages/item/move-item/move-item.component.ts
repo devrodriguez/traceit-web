@@ -73,7 +73,7 @@ export class MoveItemComponent {
 
     this.momenetsService.createMovement(this.currentMovement)
     .then(res => {
-      this.presentSnackBar('Item ingresado')
+      this.presentSnackBar(`Item ingresado a ${this.currentMovement.place.name}`)
     })
     .catch(err => {
       console.log(err)
