@@ -27,7 +27,7 @@ export class MoveItemComponent {
     private momenetsService: MovementsService,
     public matDialog: MatDialog,
     private matSnackBar: MatSnackBar) {
-    
+      this.placesService.readPlaces()
   }
 
   async loadItemByID(itemID: string) {

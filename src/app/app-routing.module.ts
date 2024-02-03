@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddItemComponent } from './pages/item/add-item/add-item.component';
 import { MoveItemComponent } from './pages/item/move-item/move-item.component';
 import { MovementsComponent } from './pages/item/movements/movements.component';
+import { OperatorComponent } from './pages/admin/operator/operator.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'item/movements',
     component: MovementsComponent
+  },
+  {
+    path: 'admin/operators',
+    component: OperatorComponent
   },
   {
     path: '**', 

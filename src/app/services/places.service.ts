@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, getDoc, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocFromCache, getDocs, getDocsFromCache } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlacesService {
 
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore) { 
+    
+  }
 
   readPlaces() {
     const itemRef = collection(this.firestore, 'places')

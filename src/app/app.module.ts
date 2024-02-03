@@ -27,14 +27,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { QrComponent } from './components/qr/qr.component';
 import { MoveItemComponent } from './pages/item/move-item/move-item.component';
 import { ItemFormComponent } from './components/item-form/item-form.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { getApp, initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { provideFunctions,getFunctions } from '@angular/fire/functions';
-import { provideStorage,getStorage } from '@angular/fire/storage';
+import { provideFirestore, getFirestore, CACHE_SIZE_UNLIMITED, initializeFirestore, persistentLocalCache } from '@angular/fire/firestore';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 import { MoveFormComponent } from './components/move-form/move-form.component';
 import { MovementsComponent } from './pages/item/movements/movements.component';
+import { OperatorComponent } from './pages/admin/operator/operator.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MovementsComponent } from './pages/item/movements/movements.component';
     MoveItemComponent,
     ItemFormComponent,
     MoveFormComponent,
-    MovementsComponent
+    MovementsComponent,
+    OperatorComponent
   ],
   imports: [
     BrowserModule,
@@ -66,10 +68,21 @@ import { MovementsComponent } from './pages/item/movements/movements.component';
     MatSnackBarModule,
     MatTabsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    provideStorage(() => getStorage())
+    //provideAuth(() => getAuth()),
+    provideFirestore(() => {
+      const firestore = initializeFirestore(
+        getApp(),
+        {
+          localCache: persistentLocalCache({
+            cacheSizeBytes: CACHE_SIZE_UNLIMITED
+          }),
+        }
+      )
+
+      return firestore
+    }),
+    // provideFunctions(() => getFunctions()),
+    // provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]
