@@ -1,0 +1,31 @@
+.page-container {
+    margin: 10px;
+}
+
+.card-form-container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.card-item-list-container {
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+.card-item {
+    margin-top: 10px;
+}
+
+.card-item mat-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.card-item mat-card-content span {
+    flex-basis: 20%;
+}
+
+.card-item mat-card-content mat-icon {
+    cursor: pointer;
+}

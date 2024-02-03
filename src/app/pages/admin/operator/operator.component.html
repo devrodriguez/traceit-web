@@ -1,0 +1,29 @@
+<div class="page-container">
+    <section class="card-form-container">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field appearance="fill" class="full-field">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput type="text" name="name" id="name" [(ngModel)]="newOperator.name">
+                </mat-form-field>
+                <p>
+                    <button mat-raised-button color="primary" (click)="onCreateOperator()">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+                        Crear
+                    </button>
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </section>
+    <section class="card-item-list-container">
+        <mat-card class="card-item" *ngFor="let operator of operators">
+            <mat-card-content>
+                <span>{{operator.name}}</span>
+                <mat-icon aria-hidden="false" 
+                aria-label="" 
+                fontIcon="content_copy"
+                (click)="onCopyCode(operator)"></mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </section>
+</div>
