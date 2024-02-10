@@ -7,6 +7,8 @@ import { AddItemComponent } from './pages/item/add-item/add-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
+import { provideAuth, getAuth } from '@angular/fire/auth';
+
 import { QRCodeModule } from 'angularx-qrcode'
 
 /** Material */
@@ -29,13 +31,11 @@ import { MoveItemComponent } from './pages/item/move-item/move-item.component';
 import { ItemFormComponent } from './components/item-form/item-form.component';
 import { getApp, initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore, CACHE_SIZE_UNLIMITED, initializeFirestore, persistentLocalCache } from '@angular/fire/firestore';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
-import { provideStorage, getStorage } from '@angular/fire/storage';
+import { provideFirestore, CACHE_SIZE_UNLIMITED, initializeFirestore, persistentLocalCache } from '@angular/fire/firestore';
 import { MoveFormComponent } from './components/move-form/move-form.component';
 import { MovementsComponent } from './pages/item/movements/movements.component';
 import { OperatorComponent } from './pages/admin/operator/operator.component';
+import { LoginComponent } from './pages/auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,8 @@ import { OperatorComponent } from './pages/admin/operator/operator.component';
     ItemFormComponent,
     MoveFormComponent,
     MovementsComponent,
-    OperatorComponent
+    OperatorComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +69,7 @@ import { OperatorComponent } from './pages/admin/operator/operator.component';
     MatSnackBarModule,
     MatTabsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    //provideAuth(() => getAuth()),
+    provideAuth(() => getAuth()),
     provideFirestore(() => {
       const firestore = initializeFirestore(
         getApp(),

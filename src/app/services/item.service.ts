@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { 
-  Firestore, 
-  CollectionReference, 
+  Firestore,
   addDoc,
   collection, 
   doc, 
@@ -10,14 +9,6 @@ import {
   getDocs, 
   query, 
   collectionData,
-  Query,
-  where,
-  collectionChanges,
-  queryEqual,
-  DocumentData,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
-  onSnapshot,
   orderBy} from '@angular/fire/firestore';
 
 import { Item } from '../interfaces/item';

@@ -1,8 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="loggedIn">
     <span>Trace It</span>
     <a mat-button routerLink="/item/add">Items</a>
     <a mat-button routerLink="/item/move">Trasladar Items</a>
     <a mat-button routerLink="/item/movements">Traslados</a>
     <a mat-button routerLink="/admin/operators">Operator</a>
+    <button mat-button color="secondary" (click)="onLogOut()">Log Out</button>
 </mat-toolbar>
 <router-outlet></router-outlet>
